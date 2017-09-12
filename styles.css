@@ -13,3 +13,11 @@ body{
 #main-card{
 	max-width: 550px;
 }
+
+#main-card-container {
+	border-radius: 25px;
+}
+
+#mc-embedded-subscribe {
+	margin-top: 10px;
+}
