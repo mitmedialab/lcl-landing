@@ -1,5 +1,5 @@
 body{
-	background-image: url("./lego-pegs.png");
+	background-image: url("./lego-pegs.svg");
 	background-size: 1500px;
     background-repeat: repeat;
     background-color: #000;
@@ -11,5 +11,5 @@ body{
 }
 
 #main-card{
-	max-width: 550px;
+	max-width: 600px;
 }
