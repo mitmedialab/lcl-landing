@@ -26,42 +26,9 @@
     <div class="container-fluid main-container d-flex flex-column justify-content-center">
       <div class="card align-self-center text-center m-4">
         <div class="card-body m-4" id="main-card">
-          <h1 class="mt-3">About LCL</h1>
-          <h3 class="mt-3">It's not just a Course, but also a Learning Community</h3>
+          <!-- Grab FAQs from Google Doc -->
+          <div id="doc-container" class="text-left"></div>
           
-          <div class="text-left">
-          <p>For many years, the <a href="http://llk.media.mit.edu" target="_blank">Lifelong Kindergarten group</a> at the <a href="https://www.media.mit.edu/" target="_blank">MIT Media Lab</a>, led by <a href="http://web.media.mit.edu/~mres/" target="_blank">Mitch Resnick</a>, has been developing new technologies, activities, and environments (such as Scratch and Computer Clubhouses) to engage all children, from all backgrounds, in creative learning experiences. </p>
-          <p><a href="http://lcl.media.mit.edu/" target="_blank">Learning Creative Learning</a> (LCL) is our effort to connect with people around the world who share our visions and values. It is an opportunity for like-minded educators and learners to meet one another and share ideas, strategies, and practical tips on how to support creative learning.</p>
-          <p>LCL is organized as a six-week online course, starting in October 2017, but its real goal is to cultivate an ongoing learning community in support of creative learning around the world. Each week we will offer online videos, readings, and hands-on activities. You’ll be able go through this material at your own pace. All of our materials will be freely available (including sections from Mitch Resnick’s new <a href="http://lifelongkindergarten.net/" target="_blank">Lifelong Kindergarten book</a>). You will spend as much or as little time you like -- by watching, reading, making, sharing, reflecting, and discussing.</p>
-          </div>
-
-          <hr class="mt-3"/>
-          <p class="mt-3 mb-4 p-2">
-            Learning Creative learning is an online course and a community of educators..
-          </p>
-          
-          <!-- begin FAQ -->
-          <div class="text-left">
-            <h3 class="mt-4">Do I need to attend classes?</h3>
-            <p>
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </p>
-
-            <h3 class="mt-4">Is this about Scratch?</h3>
-            <p>
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-            </p>
-
-            <h3 class="mt-4">Do I get a certificate?</h3>
-            <p>
-              Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </p>
-             
-          </div>
-
-          <!-- end FAQ -->
-          
-          <hr class="mt-4"/>
           <a href="index.html" class="btn btn-outline-primary btn-lg mt-5">Home</a>
           <hr class="mt-4"/>
 
@@ -88,6 +55,38 @@
     </script>
 
     <script type="text/javascript" src="script.js"></script>
+
+    <!-- Grab Google Doc content, and adapt to bootstrap --> 
+    <script>
+        $(document).ready(function() {
+          var target = "https://docs.google.com/document/d/e/2PACX-1vTdxhwglAHKaJ23Br4LW0aXUdVt_bMVwXF_JZB-e2f-tE2BzcP7r0aUBJsgN4knLSOG81lnJ1CtfB_U/pub?embedded=true"
+          
+          function reqListener () {
+            var text = this.responseText;
+
+            text = text.replace(/href=/g, 'target="_blank" href=')
+                       .replace(/h3/g, 'h4')
+                       .replace(/h2/g, 'h3')
+                       .replace(/h1/g, 'h2');
+
+            $('#doc-container').html(text);
+
+            $('#doc-container style').remove();
+            $('#doc-container h2').addClass('mt-3 text-center').after("<hr class=mt-3></hr>");
+            $('#doc-container h3').addClass('mt-3 mb-4 p-2 text-center')
+              .replaceWith(function () {
+                return $("<p />", attrs).append($(this).contents());
+              });
+            $('#doc-container h4').addClass('mt-4');
+
+          }
+
+          var oReq = new XMLHttpRequest();
+          oReq.addEventListener("load", reqListener);
+          oReq.open("GET", target);
+          oReq.send();
+        });
+  </script>
 
   </body>
 </html>
