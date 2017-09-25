@@ -1,11 +1,10 @@
+var supported_lang = ['en','it','ja', 'es', 'pt', 'he'];
+
 $(document).ready(function() {
-
-  var supported_lang = ['en','it','ja', 'es', 'pt', 'he'];
-
   var language = navigator.languages && navigator.languages[0] || // Chrome / Firefox
                   navigator.language ||   // All browsers
                   navigator.userLanguage; // IE <= 10
-                
+
   // update MailChimp's browser language field
   if (language) {
     $('#mc-embedded-subscribe-form').attr('action', function(i, val){
@@ -20,6 +19,30 @@ $(document).ready(function() {
 
   // update iframe src
   $('#video-iframe').attr('src', function(i, val){
-    return val + '&hl=' + language;
+    // Only add language if isn't set up (by Transifex)
+    if (val.indexOf("&hl=") == -1) {
+      val = val + '&hl=' + language;
+    }
+
+    return val;
   });
+});
+
+Transifex.live.onTranslatePage(function(language_code) {
+  var new_lang = Transifex.live.getSelectedLanguageCode();
+
+  if (new_lang) {
+    $("#trailer-video").attr("lang", new_lang);
+
+    if (supported_lang.indexOf(new_lang.substr(0,2)) != -1) {
+
+      // add new language
+      $('#video-iframe').attr('src', function(i, val){
+        // remove last lang if exists
+        val = val.replace(/&hl=.*/, '');
+
+        return val + '&hl=' + new_lang;
+      });
+    }
+  }
 });
