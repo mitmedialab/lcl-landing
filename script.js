@@ -23,6 +23,9 @@ $(document).ready(function() {
     if (val.indexOf("&hl=") == -1) {
       val = val + '&hl=' + language;
     }
+    if (val.indexOf("&cc_lang_pref=") == -1) {
+      val = val + '&cc_lang_pref=' + language;
+    }
 
     return val;
   });
@@ -39,9 +42,9 @@ Transifex.live.onTranslatePage(function(language_code) {
       // add new language
       $('#video-iframe').attr('src', function(i, val){
         // remove last lang if exists
-        val = val.replace(/&hl=.*/, '');
+        val = val.replace(/&hl=.*/, '').replace(/&cc_lang_pref=.*/, '');
 
-        return val + '&hl=' + new_lang;
+        return val + '&hl=' + new_lang + '&cc_lang_pref=' + new_lang;
       });
     }
   }
