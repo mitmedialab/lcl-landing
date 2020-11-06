@@ -1,5 +1,5 @@
 # Learning Creative Learning (LCL)
 
-[ARCHIVED] This repository generates the offical website for Learning Creative Learning.
+[ARCHIVED] Old landing page for Learning Creative Learning.
 
-You can visit the site here > http://learn.media.mit.edu/lcl
+You can visit the current site here > http://learn.media.mit.edu/lcl
